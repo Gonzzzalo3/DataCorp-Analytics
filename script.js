@@ -1,29 +1,28 @@
-fetch('data.csv')
-  .then(response => response.text())
-  .then(data => {
-    const rows = data.split('\n').map(row => row.split(','));
+// Obtener CSV embebido
+const csv = document.getElementById("csv-data").textContent.trim();
 
-    const head = document.getElementById('table-head');
-    const body = document.getElementById('table-body');
+// Convertir a matriz
+const rows = csv.split('\n').map(row => row.split(','));
 
-    // Cabecera
-    rows[0].forEach(col => {
-      const th = document.createElement('th');
-      th.textContent = col;
-      head.appendChild(th);
-    });
+const head = document.getElementById('table-head');
+const body = document.getElementById('table-body');
 
-    // Filas
-    rows.slice(1).forEach(row => {
-      const tr = document.createElement('tr');
+// Crear cabecera
+rows[0].forEach(col => {
+  const th = document.createElement('th');
+  th.textContent = col;
+  head.appendChild(th);
+});
 
-      row.forEach(col => {
-        const td = document.createElement('td');
-        td.textContent = col;
-        tr.appendChild(td);
-      });
+// Crear filas
+rows.slice(1).forEach(row => {
+  const tr = document.createElement('tr');
 
-      body.appendChild(tr);
-    });
-  })
-  .catch(error => console.error('Error cargando CSV:', error));
+  row.forEach(col => {
+    const td = document.createElement('td');
+    td.textContent = col;
+    tr.appendChild(td);
+  });
+
+  body.appendChild(tr);
+});
